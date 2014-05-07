@@ -2,15 +2,18 @@ package mongo;
 
 import com.mongodb.WriteResult;
 import dao.Repository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 /**
  * Created by dell on 2014/5/7.
  */
+@Service
 public class CRUD implements Repository<User> {
-
+    @Autowired
     MongoTemplate mongoTemplate;
 
     @Override
@@ -37,4 +40,5 @@ public class CRUD implements Repository<User> {
     public void createCollection() {
 
     }
+
 }

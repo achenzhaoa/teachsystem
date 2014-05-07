@@ -13,7 +13,7 @@
        http://www.springframework.org/schema/data/mongo
        http://www.springframework.org/schema/data/mongo/spring-mongo.xsd">
     <mvc:annotation-driven/>
-    <context:component-scan base-package="controller,dao"></context:component-scan>
+    <context:component-scan base-package="controller,dao,mongo"></context:component-scan>
     <!-- Freemarker配置 -->
     <bean id="freemarkerConfig"
           class="org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer">
