@@ -21,10 +21,12 @@ public class IndexController {
     @RequestMapping(value = "index.vpage", method = RequestMethod.GET)
     String goToIndex(Model model){
         model.addAttribute("index","hello world");
-        User user = new User("chenzhao",26);
-        crud.saveObject(user);
-        model.addAttribute("user",crud.getAllObjects());
         return "index";
+    }
+
+    @RequestMapping(value = "login.vpage", method = RequestMethod.POST)
+    String login(Model model){
+        return "studentMainPage";
     }
 
 

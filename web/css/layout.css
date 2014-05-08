@@ -1,0 +1,11 @@
+.layout-header{
+    min-height: 38px;
+    vertical-align: middle;
+}
+
+.loginForm{
+    padding: 50px 30px 30px 10px;
+    border: 1px solid #D0D0D0;
+    width: 400px;
+    margin: 0 auto;
+}
