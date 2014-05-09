@@ -23,5 +23,5 @@ public interface Repository<T> {
 
     public User login(String user,String pwd);
 
-    public void uploadFile(InputStream file);
+    public void uploadFile(String fileName,String type,InputStream file);
 }

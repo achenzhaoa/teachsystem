@@ -15,9 +15,9 @@ public class User {
     private String pwd;
     private String role;
 
-    public User(String name,int age){
+    public User(String name,String pwd){
         this.name = name;
-        this.age = age;
+        this.pwd = pwd;
     }
 
     public String getId() {

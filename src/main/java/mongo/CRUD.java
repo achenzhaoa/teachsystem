@@ -3,6 +3,7 @@ package mongo;
 import com.mongodb.DB;
 import com.mongodb.WriteResult;
 import com.mongodb.gridfs.GridFS;
+import com.mongodb.gridfs.GridFSInputFile;
 import dao.Repository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
@@ -54,9 +55,12 @@ public class CRUD implements Repository<User> {
     }
 
     @Override
-    public void uploadFile(InputStream file) {
+    public void uploadFile(String fileName,String type,InputStream file) {
         DB db = this.mongoTemplate.getDb();
         GridFS myFS = new GridFS(db);
-        myFS.createFile(file);
+        GridFSInputFile gfsInput = myFS.createFile(file);
+        gfsInput.setFilename(fileName);
+        gfsInput.setContentType(type);
+        gfsInput.save();
     }
 }

@@ -44,9 +44,10 @@ public class IndexController {
     @RequestMapping(value = "/uploadFile.vpage", method=RequestMethod.POST)
     String uploadFile(@RequestParam("filedata") MultipartFile file,Model model){
         String originalFileName = file.getOriginalFilename();
+        String contentType = file.getContentType();
         try {
             InputStream stream = file.getInputStream();
-            mongoDb.uploadFile(stream);
+            mongoDb.uploadFile(originalFileName,contentType,stream);
         } catch (IOException e) {
             e.printStackTrace();
         }
