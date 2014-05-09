@@ -4,6 +4,8 @@ import com.mongodb.WriteResult;
 import dao.Repository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -41,4 +43,10 @@ public class CRUD implements Repository<User> {
 
     }
 
+    @Override
+    public User login(String name, String pwd) {
+        Criteria criteria = Criteria.where("name").is(name)
+                .andOperator(Criteria.where("pwd").is(pwd));
+        return this.mongoTemplate.findOne(Query.query(criteria),User.class);
+    }
 }

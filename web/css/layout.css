@@ -9,3 +9,8 @@
     width: 400px;
     margin: 0 auto;
 }
+
+.changeLink,.findLink{
+    line-height: 55px;
+    vertical-align: top;
+}

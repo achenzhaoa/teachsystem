@@ -1,6 +1,7 @@
 package dao;
 
 import com.mongodb.WriteResult;
+import mongo.User;
 
 import java.util.List;
 
@@ -19,4 +20,5 @@ public interface Repository<T> {
 
     public void createCollection();
 
+    public User login(String user,String pwd);
 }

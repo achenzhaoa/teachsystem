@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  * Created by dell on 2014/5/6.
@@ -16,17 +17,24 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public class IndexController {
 
     @Autowired
-    private CRUD crud;
+    private CRUD mongoDb;
 
-    @RequestMapping(value = "index.vpage", method = RequestMethod.GET)
+    @RequestMapping(value = "index.vpage")
     String goToIndex(Model model){
-        model.addAttribute("index","hello world");
         return "index";
     }
 
     @RequestMapping(value = "login.vpage", method = RequestMethod.POST)
-    String login(Model model){
-        return "studentMainPage";
+    String login(@RequestParam("name") String name,
+                 @RequestParam("pwd") String pwd,Model model){
+        User currentUser = mongoDb.login(name,pwd);
+        if(currentUser!=null){
+            return "studentMainPage";
+        }else{
+            model.addAttribute("err","用户名或密码错误，请重新输入");
+            return "forward:/index.vpage";
+        }
+
     }
 
 
