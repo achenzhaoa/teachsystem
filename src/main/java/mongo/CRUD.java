@@ -1,6 +1,8 @@
 package mongo;
 
+import com.mongodb.DB;
 import com.mongodb.WriteResult;
+import com.mongodb.gridfs.GridFS;
 import dao.Repository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
@@ -8,6 +10,7 @@ import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Service;
 
+import java.io.InputStream;
 import java.util.List;
 
 /**
@@ -48,5 +51,12 @@ public class CRUD implements Repository<User> {
         Criteria criteria = Criteria.where("name").is(name)
                 .andOperator(Criteria.where("pwd").is(pwd));
         return this.mongoTemplate.findOne(Query.query(criteria),User.class);
+    }
+
+    @Override
+    public void uploadFile(InputStream file) {
+        DB db = this.mongoTemplate.getDb();
+        GridFS myFS = new GridFS(db);
+        myFS.createFile(file);
     }
 }
