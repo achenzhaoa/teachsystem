@@ -14,3 +14,9 @@
     line-height: 55px;
     vertical-align: top;
 }
+
+.panel-footer{
+    position: fixed;
+    bottom: 0;
+    width:100%;
+}
