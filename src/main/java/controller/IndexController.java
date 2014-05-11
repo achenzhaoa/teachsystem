@@ -1,15 +1,19 @@
 package controller;
 
+import com.mongodb.gridfs.GridFSDBFile;
 import mongo.CRUD;
+import mongo.ReadFile;
 import mongo.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.InputStream;
 
@@ -22,6 +26,8 @@ public class IndexController {
 
     @Autowired
     private CRUD mongoDb;
+    @Autowired
+    private ReadFile readFile;
 
     @RequestMapping(value = "index.vpage")
     String goToIndex(Model model) {
@@ -52,5 +58,22 @@ public class IndexController {
             e.printStackTrace();
         }
         return "true";
+    }
+
+    @RequestMapping(value = "/files/{filename}.{filetype}",method = RequestMethod.GET)
+    void readFile(@PathVariable String filename,
+                  @PathVariable String filetype,
+                  HttpServletResponse response){
+        String fllFileName = filename+"."+filetype;
+        GridFSDBFile file = readFile.getFile(fllFileName);
+        String contentType = file.getContentType();
+        response.setContentType(contentType);
+        response.setCharacterEncoding("utf8");
+        try {
+            file.writeTo(response.getOutputStream());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
 }
