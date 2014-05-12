@@ -1,6 +1,6 @@
 <#import "layout.ftl" as layout/>
 <@layout.layout>
-<h3 class="text-center">用户找回密码</h3>
+<h3 class="text-center">用户修改密码</h3>
 <form class="form-horizontal loginForm" role="form" action="/changepwd.vpage" method="post" style="width: 560px;">
     <h6 style="color:red;" class="text-center">${err!''}</h6>
     <div class="form-group">

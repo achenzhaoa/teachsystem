@@ -66,7 +66,8 @@ public class CRUD implements Repository<User> {
 
     @Override
     public User findPwd(String name) {
-        return null;
+        Criteria criteria = Criteria.where("name").is(name);
+        return this.mongoTemplate.findOne(Query.query(criteria),User.class);
     }
 
     @Override

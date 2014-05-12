@@ -64,10 +64,27 @@ public class IndexController {
             model.addAttribute("err","您的用户名或原始密码错误");
             return "changepwd";
         }else{
-            mongoDb.changePwd(name,pwd,newPwd);
+            mongoDb.changePwd(name, pwd, newPwd);
         }
         model.addAttribute("info","修改密码成功");
         return "success";
+    }
+
+    @RequestMapping(value = "findPwdIndex.vpage",method = RequestMethod.GET)
+    String findPwdIndex(){
+        return "findPwd";
+    }
+
+    @RequestMapping(value = "findPwd.vpage",method = RequestMethod.POST)
+    String findPwd(@RequestParam("name")String name,
+                   Model model){
+            User user = mongoDb.findPwd(name);
+        if(user==null){
+            model.addAttribute("err","该用户不存在");
+        }else {
+            model.addAttribute("pwd",user.getPwd());
+        }
+        return "findPwd";
     }
 
     @RequestMapping(value = "/uploadFile.vpage", method=RequestMethod.POST)
