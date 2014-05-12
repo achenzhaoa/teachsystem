@@ -23,5 +23,9 @@ public interface Repository<T> {
 
     public User login(String user,String pwd);
 
+    public boolean changePwd(String name,String pwd,String newPwd);
+
+    public User findPwd(String name);
+
     public void uploadFile(String fileName,String type,InputStream file);
 }

@@ -13,9 +13,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.*;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.Properties;
 
 /**
@@ -48,6 +50,26 @@ public class IndexController {
 
     }
 
+    @RequestMapping(value = "changepwdIndex.vpage",method = RequestMethod.GET)
+    String changePwdIndex(){
+        return "changepwd";
+    }
+    @RequestMapping(value = "changepwd.vpage",method = RequestMethod.POST)
+    String changePwd(@RequestParam("name")String name,
+                     @RequestParam("pwd")String pwd,
+                     @RequestParam("newpwd")String newPwd,
+                     Model model){
+        User currentUser = mongoDb.login(name,pwd);
+        if(currentUser == null){
+            model.addAttribute("err","您的用户名或原始密码错误");
+            return "changepwd";
+        }else{
+            mongoDb.changePwd(name,pwd,newPwd);
+        }
+        model.addAttribute("info","修改密码成功");
+        return "success";
+    }
+
     @RequestMapping(value = "/uploadFile.vpage", method=RequestMethod.POST)
     @ResponseBody
     String uploadFile(@RequestParam("filedata") MultipartFile file,Model model,
@@ -68,25 +90,28 @@ public class IndexController {
             File fs = new File(baseSwfDir+originalFileName);
             file.transferTo(fs);
             //转换为swf格式文件
-            readFile.convertSwf(fs,filename,filetype,baseSwfDir);
-            FileInputStream swf = new FileInputStream(baseSwfDir+filename+".swf");
-            long waitTime = fs.length()/50;
-            try {
-                Thread.sleep(waitTime);
-                mongoDb.uploadFile(filename + ".swf", "application/x-shockwave-flash", swf);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
+            if(filetype.equals("doc")
+                    ||filetype.equals("docx")
+                    ||filetype.equals("ppt")
+                    ||filetype.equals("pptx")
+                    ||filetype.equals("xls")
+                    ||filetype.equals("xlsx")){
+                //当为这几种格式时，转为swf格式存储起来
+                readFile.convertSwf(fs,filename,filetype,baseSwfDir);
+                FileInputStream swf = new FileInputStream(baseSwfDir+filename+".swf");
+                long waitTime = fs.length()/50;
+                try {
+                    Thread.sleep(waitTime);
+                    mongoDb.uploadFile(filename + ".swf", "application/x-shockwave-flash", swf);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
             }
+
         } catch (IOException e) {
             e.printStackTrace();
         }
-        if(filetype.equals("doc")
-                ||filetype.equals("docx")
-                ||filetype.equals("ppt")
-                ||filetype.equals("pptx")
-                ||filetype.equals("xls")
-                ||filetype.equals("xlsx")){
-        }
+
         return "true";
     }
 

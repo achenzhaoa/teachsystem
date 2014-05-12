@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Service;
 
 import java.io.InputStream;
@@ -52,6 +53,20 @@ public class CRUD implements Repository<User> {
         Criteria criteria = Criteria.where("name").is(name)
                 .andOperator(Criteria.where("pwd").is(pwd));
         return this.mongoTemplate.findOne(Query.query(criteria),User.class);
+    }
+
+    @Override
+    public boolean changePwd(String name, String pwd, String newPwd) {
+        WriteResult rs = this.mongoTemplate.updateFirst(new Query(Criteria.where("name").is(name)
+                        .andOperator(Criteria.where("pwd").is(pwd))),
+                Update.update("pwd",newPwd),User.class
+        );
+        return true;
+    }
+
+    @Override
+    public User findPwd(String name) {
+        return null;
     }
 
     @Override

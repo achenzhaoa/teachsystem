@@ -19,8 +19,8 @@
     <div class="form-group">
         <div class="col-sm-offset-2 col-sm-10">
             <button type="submit" class="btn btn-default btn-primary col-lg-offset-3">登录</button>
-            <a class="changeLink">修改密码</a>
-            <a class="findLink">找回密码</a>
+            <a class="changeLink" href="/changepwdIndex.vpage" target="_blank">修改密码</a>
+            <a class="findLink" href="/findpwd.vpage" target="_blank">找回密码</a>
         </div>
     </div>
 </form>
