@@ -18,9 +18,10 @@
 
     <div class="form-group">
         <div class="col-sm-offset-2 col-sm-10">
-            <button type="submit" class="btn btn-default btn-primary col-lg-offset-3">登录</button>
+            <button type="submit" class="btn btn-default btn-primary">登录</button>
             <a class="changeLink" href="/changepwdIndex.vpage" target="_blank">修改密码</a>
             <a class="findLink" href="/findPwdIndex.vpage" target="_blank">找回密码</a>
+            <a class="findLink" href="/register.vpage" target="_blank">用户注册</a>
         </div>
     </div>
 </form>

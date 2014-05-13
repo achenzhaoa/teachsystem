@@ -87,6 +87,19 @@ public class IndexController {
         return "findPwd";
     }
 
+    @RequestMapping(value = "register.vpage",method = RequestMethod.GET)
+    String registerIndex(){
+        return "register";
+    }
+
+    @RequestMapping(value = "register.vpage",method = RequestMethod.POST)
+    String register(@RequestParam("name")String name,
+                    @RequestParam("pwd")String pwd,
+                    @RequestParam("role")String role,Model model){
+        model.addAttribute("info","注册成功了");
+        return "success";
+    }
+
     @RequestMapping(value = "/uploadFile.vpage", method=RequestMethod.POST)
     @ResponseBody
     String uploadFile(@RequestParam("filedata") MultipartFile file,Model model,

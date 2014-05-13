@@ -6,8 +6,10 @@
     <title>Teach System</title>
     <link rel="stylesheet" type="text/css" href="/js/lib/bootstrap/css/bootstrap.css"/>
     <link rel="stylesheet" type="text/css" href="/css/layout.css"/>
-    <script type="text/javascript" src="/js/lib/jquery-1.11.1.min.js"></script>
+    <script type="text/javascript" src="/js/lib/jQuery-Validate/assets/js/jquery-1.7.1.min.js"></script>
     <script type="text/javascript" src="/js/lib/bootstrap/js/bootstrap.min.js"></script>
+
+    <script type="text/javascript" src="/js/lib/jQuery-Validate/assets/js/jquery.validate.js"></script>
 </head>
 <body>
    <div class="navbar navbar-inverse navbar-fixed-top layout-header">
