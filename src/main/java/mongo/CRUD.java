@@ -79,4 +79,9 @@ public class CRUD implements Repository<User> {
         gfsInput.setContentType(type);
         gfsInput.save();
     }
+
+    @Override
+    public void insertUser(User user) {
+        this.mongoTemplate.insert(user);
+    }
 }

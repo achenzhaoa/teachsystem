@@ -95,7 +95,13 @@ public class IndexController {
     @RequestMapping(value = "register.vpage",method = RequestMethod.POST)
     String register(@RequestParam("name")String name,
                     @RequestParam("pwd")String pwd,
-                    @RequestParam("role")String role,Model model){
+                    @RequestParam("role")String role,
+                    @RequestParam("message")String desc,
+                    Model model){
+        User user = new User(name,pwd);
+        user.setDesc(desc);
+        user.setRole(role);
+        this.mongoDb.insertUser(user);
         model.addAttribute("info","注册成功了");
         return "success";
     }

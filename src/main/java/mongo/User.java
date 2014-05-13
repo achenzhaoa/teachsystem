@@ -14,10 +14,19 @@ public class User {
     private int age;
     private String pwd;
     private String role;
+    private String desc;
 
     public User(String name,String pwd){
         this.name = name;
         this.pwd = pwd;
+    }
+
+    public String getDesc() {
+        return desc;
+    }
+
+    public void setDesc(String desc) {
+        this.desc = desc;
     }
 
     public String getId() {

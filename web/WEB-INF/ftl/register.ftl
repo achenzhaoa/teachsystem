@@ -17,10 +17,21 @@
                 <input type="password" class="input-xlarge" name="pwd" id="pwd">
             </div>
         </div>
+
         <div class="control-group">
             <label class="control-label" for="pwd1">确认密码</label>
             <div class="controls">
                 <input type="password" class="input-xlarge" name="pwd1" id="pwd1">
+            </div>
+        </div>
+
+        <div class="control-group">
+            <label class="control-label" for="role">角色</label>
+            <div class="controls">
+                <select name="role" id="role">
+                    <option value="teacher">老师</option>
+                    <option value="student">学生</option>
+                </select>
             </div>
         </div>
 
@@ -52,7 +63,7 @@
                         pwd1: {
                             minlength: 2,
                             required: true,
-                            equalTo:'pwd'
+                            equalTo :"#pwd"
                         },
                         message: {
                             minlength: 2,
