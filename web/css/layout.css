@@ -39,3 +39,8 @@
     background-color: #faf2cc;
     font-weight: bolder;
 }
+
+.successInfo{
+    background-image: url(/images/success.png);
+    padding-left:10px ;
+}

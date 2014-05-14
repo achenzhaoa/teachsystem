@@ -16,6 +16,7 @@
        <h3 class="text-center" style="color: #ffffff;">C语言教学系统</h3>
    </div>
    <div class="container" style="min-height: 550px;padding: 100px;">
+       <a class="glyphicon glyphicon-align-justify" href="/index.vpage">首页</a>
        <#nested>
    </div>
    <div class="panel-footer">

@@ -111,7 +111,7 @@ public class IndexController {
         user.setDesc(desc);
         user.setRole(role);
         this.mongoDb.insertUser(user);
-        model.addAttribute("info","注册成功了");
+        model.addAttribute("info","您注册成功了，等管理员激活您的帐号之后就可以使用了");
         return "success";
     }
 
