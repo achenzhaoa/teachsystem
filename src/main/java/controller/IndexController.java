@@ -46,6 +46,7 @@ public class IndexController {
                 if(currentUser.getName().equals("admin")){
                     return "redirect:admin/index.vpage";
                 }else{
+                    model.addAttribute("files",readFile.listFiles());
                     return "studentMainPage";
                 }
             }else{
@@ -143,16 +144,7 @@ public class IndexController {
                     ||filetype.equals("xlsx")){
                 //当为这几种格式时，转为swf格式存储起来
                 readFile.convertSwf(fs,filename,filetype,baseSwfDir);
-                FileInputStream swf = new FileInputStream(baseSwfDir+filename+".swf");
-                long waitTime = fs.length()/50;
-                try {
-                    Thread.sleep(waitTime);
-                    mongoDb.uploadFile(filename + ".swf", "application/x-shockwave-flash", swf);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
             }
-
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -163,7 +155,7 @@ public class IndexController {
     @RequestMapping(value = "/files/{filename}.{filetype}",method = RequestMethod.GET)
     void readFile(@PathVariable String filename,
                   @PathVariable String filetype,
-                  HttpServletResponse response){
+                  HttpServletResponse response) throws IOException {
         if(filetype.equals("doc")
                 ||filetype.equals("docx")
                 ||filetype.equals("ppt")
@@ -171,6 +163,7 @@ public class IndexController {
                 ||filetype.equals("xls")
                 ||filetype.equals("xlsx")){
             filetype = "swf";
+            //response.sendRedirect("/swf/"+filename+".swf");
         }
         String fullFileName = filename+"."+filetype;
         GridFSDBFile file = readFile.getFile(fullFileName);

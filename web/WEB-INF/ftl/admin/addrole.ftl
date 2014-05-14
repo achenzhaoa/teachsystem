@@ -17,7 +17,7 @@
 
     <div class="form-group">
         <div class="col-sm-offset-2 col-sm-10">
-            <button type="submit" class="btn btn-default btn-primary offset4">登录</button>
+            <button type="submit" class="btn btn-default btn-primary offset4">添加角色</button>
         </div>
     </div>
 </form>
