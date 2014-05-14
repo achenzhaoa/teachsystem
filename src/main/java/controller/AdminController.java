@@ -19,6 +19,10 @@ public class AdminController {
     @Autowired
     RoleService roleService;
 
+    @RequestMapping(value="admin/index.vpage",method = RequestMethod.GET)
+    public String index(){
+        return "admin/index";
+    }
     @RequestMapping(value = "rolelist.vpage", method= RequestMethod.GET)
     public String roleList(Model model){
         List<Role> roles = roleService.listRole();

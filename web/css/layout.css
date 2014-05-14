@@ -20,3 +20,22 @@
     bottom: 0;
     width:100%;
 }
+
+.admin-item{
+    width:200px;
+    height:200px;
+    border-radius: 100px;
+    border:1px solid #d9edf7;
+    font-size: 20px;
+    line-height: 200px;
+    text-align: center;
+    vertical-align: middle;
+    display: inline-block;
+    margin:20px;
+}
+
+.admin-item:hover{
+    cursor: pointer;
+    background-color: #faf2cc;
+    font-weight: bolder;
+}
