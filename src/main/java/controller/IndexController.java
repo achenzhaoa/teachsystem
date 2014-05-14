@@ -1,7 +1,7 @@
 package controller;
 
 import com.mongodb.gridfs.GridFSDBFile;
-import mongo.CRUD;
+import mongo.UserService;
 import mongo.ReadFile;
 import mongo.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +28,7 @@ import java.util.Properties;
 public class IndexController {
 
     @Autowired
-    private CRUD mongoDb;
+    private UserService mongoDb;
     @Autowired
     private ReadFile readFile;
 
@@ -42,12 +42,20 @@ public class IndexController {
                  @RequestParam("pwd") String pwd, Model model) {
         User currentUser = mongoDb.login(name, pwd);
         if (currentUser != null) {
-            return "studentMainPage";
+            if(currentUser.isActive()){
+                if(currentUser.getName().equals("admin")){
+                    return "redirect:admin/index.vpage";
+                }else{
+                    return "studentMainPage";
+                }
+            }else{
+                model.addAttribute("err", "该用户没有被激活，请联系管理员");
+                return "forward:/index.vpage";
+            }
         } else {
             model.addAttribute("err", "用户名或密码错误，请重新输入");
             return "forward:/index.vpage";
         }
-
     }
 
     @RequestMapping(value = "changepwdIndex.vpage",method = RequestMethod.GET)
@@ -88,7 +96,8 @@ public class IndexController {
     }
 
     @RequestMapping(value = "register.vpage",method = RequestMethod.GET)
-    String registerIndex(){
+    String registerIndex(Model model){
+        model.addAttribute("actionUrl","/register.vpage");
         return "register";
     }
 
@@ -98,7 +107,7 @@ public class IndexController {
                     @RequestParam("role")String role,
                     @RequestParam("message")String desc,
                     Model model){
-        User user = new User(name,pwd);
+        User user = new User(name,pwd,false);
         user.setDesc(desc);
         user.setRole(role);
         this.mongoDb.insertUser(user);

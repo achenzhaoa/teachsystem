@@ -2,6 +2,8 @@ package controller;
 
 import mongo.Role;
 import mongo.RoleService;
+import mongo.User;
+import mongo.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,7 +20,8 @@ import java.util.List;
 public class AdminController {
     @Autowired
     RoleService roleService;
-
+    @Autowired
+    UserService userService;
     @RequestMapping(value="admin/index.vpage",method = RequestMethod.GET)
     public String index(){
         return "admin/index";
@@ -49,5 +52,44 @@ public class AdminController {
     public String deleteRole(@RequestParam("id")String id){
         this.roleService.deleteRoleById(id);
         return "redirect:/rolelist.vpage";
+    }
+
+    @RequestMapping(value = "userlist.vpage",method=RequestMethod.GET)
+    public String userList(Model model){
+        List<User> users = userService.getAllObjects();
+        model.addAttribute("users",users.toArray());
+        return "admin/userlist";
+    }
+
+    @RequestMapping(value = "adduser.vpage",method = RequestMethod.GET)
+    public String addUserRegister(Model model){
+        model.addAttribute("actionUrl","/adduser.vpage");
+        model.addAttribute("roles",roleService.listRole().toArray());
+        return "register";
+    }
+
+    @RequestMapping(value = "adduser.vpage",method = RequestMethod.POST)
+    public String addUser(@RequestParam("name")String name,
+                          @RequestParam("pwd")String pwd,
+                          @RequestParam("role")String role,
+                          @RequestParam("message")String desc,
+                          Model model){
+        User user = new User(name,pwd,true);
+        user.setDesc(desc);
+        user.setRole(role);
+        this.userService.insertUser(user);
+        return "redirect:/userlist.vpage";
+    }
+
+    @RequestMapping(value = "deleteUser.vpage",method = RequestMethod.GET)
+    public String deleteUser(@RequestParam("id")String id){
+        this.userService.deleteUser(id);
+        return "redirect:/userlist.vpage";
+    }
+
+    @RequestMapping(value = "activeUser.vpage",method = RequestMethod.GET)
+    public String activeUser(@RequestParam("id")String id){
+        this.userService.setActiveUser(id,true);
+        return "redirect:/userlist.vpage";
     }
 }

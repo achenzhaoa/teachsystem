@@ -1,7 +1,7 @@
 <#import "layout.ftl" as layout/>
 <@layout.layout>
 <link type="text/css" rel="stylesheet" href="/js/lib/jQuery-Validate/style.css"/>
-<form action="/register.vpage" method="post" id="contact-form" class="form-horizontal">
+<form action="${actionUrl}" method="post" id="contact-form" class="form-horizontal">
     <fieldset>
         <legend>用户注册</small></legend>
         <div class="control-group">
@@ -29,8 +29,9 @@
             <label class="control-label" for="role">角色</label>
             <div class="controls">
                 <select name="role" id="role">
-                    <option value="teacher">老师</option>
-                    <option value="student">学生</option>
+                    <#list roles as role>
+                        <option value="${role.getName()}">${role.getDescription()}</option>
+                    </#list>
                 </select>
             </div>
         </div>

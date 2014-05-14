@@ -19,7 +19,7 @@ import java.util.List;
  * Created by dell on 2014/5/7.
  */
 @Service
-public class CRUD implements Repository<User> {
+public class UserService implements Repository<User> {
     @Autowired
     MongoTemplate mongoTemplate;
 
@@ -34,18 +34,14 @@ public class CRUD implements Repository<User> {
     }
 
     @Override
-    public WriteResult updateObject(String id, String name) {
-        return null;
+    public void deleteUser(String id) {
+        this.mongoTemplate.remove(Query.query(Criteria.where("id").is(id)), User.class);
     }
 
     @Override
-    public void deleteObject(String id) {
-
-    }
-
-    @Override
-    public void createCollection() {
-
+    public void setActiveUser(String id,boolean active) {
+        this.mongoTemplate.updateFirst(Query.query(Criteria.where("id").is(id)),
+                Update.update("active", active), User.class);
     }
 
     @Override

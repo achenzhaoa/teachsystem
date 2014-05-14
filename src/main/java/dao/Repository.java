@@ -1,6 +1,5 @@
 package dao;
 
-import com.mongodb.WriteResult;
 import mongo.User;
 
 import java.io.InputStream;
@@ -15,11 +14,9 @@ public interface Repository<T> {
 
     public void saveObject(T object);
 
-    public WriteResult updateObject(String id,String name);
+    public void deleteUser(String id);
 
-    public void deleteObject(String id);
-
-    public void createCollection();
+    public void setActiveUser(String id,boolean active);
 
     public User login(String user,String pwd);
 

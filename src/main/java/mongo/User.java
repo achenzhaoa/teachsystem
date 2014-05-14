@@ -15,10 +15,12 @@ public class User {
     private String pwd;
     private String role;
     private String desc;
+    private boolean active;
 
-    public User(String name,String pwd){
+    public User(String name,String pwd,boolean active){
         this.name = name;
         this.pwd = pwd;
+        this.active = active;
     }
 
     public String getDesc() {
@@ -63,5 +65,17 @@ public class User {
 
     public void setRole(String role) {
         this.role = role;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
     }
 }
