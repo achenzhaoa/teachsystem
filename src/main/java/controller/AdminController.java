@@ -38,7 +38,7 @@ public class AdminController {
             Model model){
         Role role = new Role(name,desc);
         this.roleService.insertRole(role);
-        return "admin/rolelist";
+        return "redirect:/rolelist.vpage";
     }
 
     @RequestMapping(value = "deleteRole.vpage", method = RequestMethod.GET)
