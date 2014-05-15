@@ -1,9 +1,9 @@
 package controller;
 
 import com.mongodb.gridfs.GridFSDBFile;
-import mongo.UserService;
 import mongo.ReadFile;
 import mongo.User;
+import mongo.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
@@ -15,7 +15,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
@@ -46,8 +45,7 @@ public class IndexController {
                 if(currentUser.getName().equals("admin")){
                     return "redirect:admin/index.vpage";
                 }else{
-                    model.addAttribute("files",readFile.listFiles());
-                    return "studentMainPage";
+                    return "redirect:/studentMainPage.vpage";
                 }
             }else{
                 model.addAttribute("err", "该用户没有被激活，请联系管理员");
@@ -117,7 +115,6 @@ public class IndexController {
     }
 
     @RequestMapping(value = "/uploadFile.vpage", method=RequestMethod.POST)
-    @ResponseBody
     String uploadFile(@RequestParam("filedata") MultipartFile file,Model model,
                       HttpServletResponse response) throws IOException {
         String originalFileName = file.getOriginalFilename();
@@ -149,7 +146,7 @@ public class IndexController {
             e.printStackTrace();
         }
 
-        return "true";
+        return "redirect:/studentMainPage.vpage";
     }
 
     @RequestMapping(value = "/files/{filename}.{filetype}",method = RequestMethod.GET)
@@ -175,5 +172,11 @@ public class IndexController {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    @RequestMapping(value = "studentMainPage.vpage",method = RequestMethod.GET)
+    String toStudentIndex(Model model){
+        model.addAttribute("files",readFile.listFiles());
+        return "studentMainPage";
     }
 }
