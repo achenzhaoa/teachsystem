@@ -44,3 +44,33 @@
     background-image: url(/images/success.png);
     padding-left:10px ;
 }
+
+.file-item{
+    border:1px solid #D0D0D0;
+    width: 300px;
+    height: 300px;
+    margin:10px;
+    border-radius: 3px;
+    display: inline-block;
+}
+.file-item:hover{
+    cursor: pointer;
+}
+
+.file-jpg{
+    background-image: url(/images/jpg.png);
+    width: 260px;
+    height: 260px;
+}
+
+.file-doc{
+    background-image: url(/images/doc.png);
+    width: 260px;
+    height: 260px;
+}
+
+.file-ppt{
+    background-image: url(/images/ppt.png);
+    width: 260px;
+    height: 260px;
+}

@@ -9,6 +9,7 @@ public class GFSfile {
     String description;
     String type;
     String date;
+    String url;
 
     public String getId() {
         return id;
@@ -48,5 +49,13 @@ public class GFSfile {
 
     public void setDate(String date) {
         this.date = date;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
     }
 }

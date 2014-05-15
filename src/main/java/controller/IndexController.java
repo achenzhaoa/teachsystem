@@ -1,6 +1,7 @@
 package controller;
 
 import com.mongodb.gridfs.GridFSDBFile;
+import mongo.GFSfile;
 import mongo.ReadFile;
 import mongo.User;
 import mongo.UserService;
@@ -10,13 +11,18 @@ import org.springframework.core.io.Resource;
 import org.springframework.core.io.support.PropertiesLoaderUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
 
 /**
@@ -153,12 +159,7 @@ public class IndexController {
     void readFile(@PathVariable String filename,
                   @PathVariable String filetype,
                   HttpServletResponse response) throws IOException {
-        if(filetype.equals("doc")
-                ||filetype.equals("docx")
-                ||filetype.equals("ppt")
-                ||filetype.equals("pptx")
-                ||filetype.equals("xls")
-                ||filetype.equals("xlsx")){
+        if(isSwf(filetype)){
             filetype = "swf";
             //response.sendRedirect("/swf/"+filename+".swf");
         }
@@ -176,7 +177,41 @@ public class IndexController {
 
     @RequestMapping(value = "studentMainPage.vpage",method = RequestMethod.GET)
     String toStudentIndex(Model model){
-        model.addAttribute("files",readFile.listFiles());
+        model.addAttribute("files",this.getFileList());
         return "studentMainPage";
+    }
+
+    private boolean isSwf(String filetype){
+        if(filetype.equals("doc")
+                ||filetype.equals("docx")
+                ||filetype.equals("ppt")
+                ||filetype.equals("pptx")
+                ||filetype.equals("xls")
+                ||filetype.equals("xlsx")) {
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    private List<GFSfile> getFileList(){
+        List<GFSfile> lists = new ArrayList<GFSfile>();
+        List<GridFSDBFile> list = readFile.listFiles();
+        for(GridFSDBFile file : list){
+            GFSfile item = new GFSfile();
+            String fileName = file.getFilename();
+            item.setFileName(file.getFilename());
+            item.setDate(file.getUploadDate().toString());
+            item.setDescription("测试文件");
+            String fileType = fileName.substring(fileName.lastIndexOf(".")+1);
+            item.setType(fileType);
+            if(isSwf(fileType)){
+                item.setUrl("/swf/"+fileName.substring(0,fileName.lastIndexOf("."))+".swf");
+            }else{
+                item.setUrl("files/"+fileName);
+            }
+            lists.add(item);
+        }
+        return lists;
     }
 }
