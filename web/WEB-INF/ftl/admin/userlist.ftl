@@ -1,33 +1,22 @@
 <#import "../layout.ftl" as layout/>
 <@layout.layout>
 <h2 class="text-center">系统用户列表</h2>
-<a class="text-center" href="/adduser.vpage">添加用户</a>
-<table class="table table-bordered">
-    <thead>
-    <th>ID</th>
-    <th>用户名</th>
-    <th>密码</th>
-    <th>角色</th>
-    <th>激活状态</th>
-    <th>删除</th>
-    </thead>
-    <tbody>
+<a class="text-center glyphicon glyphicon-user" href="/adduser.vpage">添加用户</a>
+<hr/>
+<div class="container">
+    <div class="row">
         <#list users as user>
-        <tr>
-            <td>${user.getId()}</td>
-            <td>${user.getName()}</td>
-            <td>${user.getPwd()}</td>
-            <td>${user.getRole()}</td>
-            <td>
-                <#if user.isActive()==false>
-                    <a href="/activeUser.vpage?id=${user.getId()}">激活</a>
+            <div class="col-lg-3 user-item">
+                <img src="/images/user.png"/>
+                <span class="text-center clearfix">${user.getName()}</span>
+                <span class="text-center"><#if user.isActive()==false>
+                    <a href="/activeUser.vpage?id=${user.getId()}" class="glyphicon glyphicon-lock">激活</a>
                 <#else>
-                    已激活
-                </#if>
-            </td>
-            <td><a href="deleteUser.vpage?id=${user.getId()}">删除</a></td>
-        </tr>
+                    <span class="active">已激活</span>
+                </#if></span>
+                <a href="deleteUser.vpage?id=${user.getId()}" class="glyphicon glyphicon-remove">删除</a>
+            </div>
         </#list>
-    </tbody>
-</table>
+    </div>
+</div>
 </@layout.layout>

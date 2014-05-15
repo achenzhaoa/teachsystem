@@ -1,10 +1,7 @@
 package controller;
 
 import com.mongodb.gridfs.GridFSDBFile;
-import mongo.GFSfile;
-import mongo.ReadFile;
-import mongo.User;
-import mongo.UserService;
+import mongo.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
@@ -36,6 +33,8 @@ public class IndexController {
     private UserService mongoDb;
     @Autowired
     private ReadFile readFile;
+    @Autowired
+    RoleService roleService;
 
     @RequestMapping(value = "index.vpage")
     String goToIndex(Model model) {
@@ -103,6 +102,7 @@ public class IndexController {
     @RequestMapping(value = "register.vpage",method = RequestMethod.GET)
     String registerIndex(Model model){
         model.addAttribute("actionUrl","/register.vpage");
+        model.addAttribute("roles",roleService.listRole().toArray());
         return "register";
     }
 

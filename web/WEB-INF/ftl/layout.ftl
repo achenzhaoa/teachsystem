@@ -8,8 +8,6 @@
     <link rel="stylesheet" type="text/css" href="/css/layout.css"/>
     <script type="text/javascript" src="/js/lib/jQuery-Validate/assets/js/jquery-1.7.1.min.js"></script>
     <script type="text/javascript" src="/js/lib/bootstrap/js/bootstrap.min.js"></script>
-
-    <script type="text/javascript" src="/js/lib/jQuery-Validate/assets/js/jquery.validate.js"></script>
 </head>
 <body>
    <div class="navbar navbar-inverse navbar-fixed-top layout-header">
@@ -17,6 +15,7 @@
    </div>
    <div class="container" style="min-height: 550px;padding: 100px;">
        <a class="glyphicon glyphicon-align-justify" href="/index.vpage">首页</a>
+       <a class="glyphicon glyphicon-chevron-left pull-right" href="javascript:history.back();">返回</a>
        <#nested>
    </div>
    <div class="panel-footer">

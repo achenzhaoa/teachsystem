@@ -41,14 +41,14 @@
 }
 
 .successInfo{
-    background-image: url(/images/success.png);
-    padding-left:10px ;
+    background: url(/images/success.png) no-repeat;
+    padding:50px ;
 }
 
 .file-item{
     border:1px solid #D0D0D0;
-    width: 300px;
-    height: 300px;
+    width: 250px;
+    height: 250px;
     margin:10px;
     border-radius: 3px;
     display: inline-block;
@@ -57,20 +57,20 @@
     cursor: pointer;
 }
 
-.file-jpg{
-    background-image: url(/images/jpg.png);
-    width: 260px;
-    height: 260px;
+.file{
+    width: 200px;
+    height: 200px;
 }
 
-.file-doc{
-    background-image: url(/images/doc.png);
-    width: 260px;
-    height: 260px;
+.playImg{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 250px;
+    height: 250px;
+    opacity: 0.8;
 }
 
-.file-ppt{
-    background-image: url(/images/ppt.png);
-    width: 260px;
-    height: 260px;
+.user-item{
+    text-align: center;
 }

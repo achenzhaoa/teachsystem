@@ -1,6 +1,7 @@
 <#import "layout.ftl" as layout/>
 <@layout.layout>
 <link type="text/css" rel="stylesheet" href="/js/lib/jQuery-Validate/style.css"/>
+<script type="text/javascript" src="/js/lib/jQuery-Validate/assets/js/jquery.validate.js"></script>
 <form action="${actionUrl}" method="post" id="contact-form" class="form-horizontal">
     <fieldset>
         <legend>用户注册</small></legend>
