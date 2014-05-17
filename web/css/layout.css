@@ -74,3 +74,14 @@
 .user-item{
     text-align: center;
 }
+
+.file-item-remove{
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    border-radius: 5px ;
+}
+.file-item-remove:hover{
+    cursor: pointer;
+    background-color: #D0D0D0;
+}

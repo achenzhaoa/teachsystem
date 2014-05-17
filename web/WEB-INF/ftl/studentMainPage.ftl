@@ -1,11 +1,6 @@
 <#import "layout.ftl" as layout/>
 <@layout.layout>
     <h3 class="text-center">学生主页</h3>
-
-    <form action="/uploadFile.vpage" method="post" enctype="multipart/form-data" style="border: 1px solid #D0D0D0; margin: 0 auto; width: 380px; padding: 20px;">
-        <input type="file" name="filedata" style="display: inline-block;"/>
-        <input type="submit"/>
-    </form>
     <div class="container">
         <div class="row">
             <#list files as file>

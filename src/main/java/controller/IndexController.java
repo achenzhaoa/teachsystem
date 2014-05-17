@@ -47,10 +47,13 @@ public class IndexController {
         User currentUser = mongoDb.login(name, pwd);
         if (currentUser != null) {
             if(currentUser.isActive()){
-                if(currentUser.getName().equals("admin")){
+                String userName = currentUser.getName();
+                if(userName.equals("admin")){
                     return "redirect:admin/index.vpage";
-                }else{
+                }else if(userName.equals("student")){
                     return "redirect:/studentMainPage.vpage";
+                }else{
+                    return "redirect:/teacherMainPage.vpage";
                 }
             }else{
                 model.addAttribute("err", "该用户没有被激活，请联系管理员");
@@ -181,6 +184,18 @@ public class IndexController {
         return "studentMainPage";
     }
 
+    @RequestMapping(value = "teacherMainPage.vpage",method = RequestMethod.GET)
+    String toTeacherIndex(Model model){
+        model.addAttribute("files",this.getFileList());
+        return "teacherMainPage";
+    }
+
+    @RequestMapping(value = "removefile.vpage",method = RequestMethod.GET)
+    String removeFile(@RequestParam("id")String id){
+        readFile.removeFile(id);
+        return "redirect:/teacherMainPage.vpage";
+    }
+
     private boolean isSwf(String filetype){
         if(filetype.equals("doc")
                 ||filetype.equals("docx")
@@ -201,7 +216,8 @@ public class IndexController {
             GFSfile item = new GFSfile();
             String fileName = file.getFilename();
             item.setFileName(file.getFilename());
-            item.setDate(file.getUploadDate().toString());
+            item.setDate(file.getUploadDate().toLocaleString());
+            item.setId(file.getId().toString());
             item.setDescription("测试文件");
             String fileType = fileName.substring(fileName.lastIndexOf(".")+1);
             item.setType(fileType);

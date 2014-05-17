@@ -5,6 +5,7 @@ import com.mongodb.DBCursor;
 import com.mongodb.DBObject;
 import com.mongodb.gridfs.GridFS;
 import com.mongodb.gridfs.GridFSDBFile;
+import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.PropertyPlaceholderConfigurer;
 import org.springframework.core.io.ClassPathResource;
@@ -32,6 +33,12 @@ public class ReadFile {
         GridFS myFS = new GridFS(db);
         GridFSDBFile file = myFS.findOne(filename);
         return file;
+    }
+
+    public void removeFile(String id){
+        DB db = this.mongoTemplate.getDb();
+        GridFS myFS = new GridFS(db);
+        myFS.remove(new ObjectId(id));
     }
 
     public void convertSwf(File file,String fileName,String format,String basePath){
