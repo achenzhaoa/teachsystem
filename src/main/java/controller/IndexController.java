@@ -36,6 +36,10 @@ public class IndexController {
     @Autowired
     RoleService roleService;
 
+    @RequestMapping(value = "portal.vpage")
+    String goToPortal(){
+        return "portal";
+    }
     @RequestMapping(value = "index.vpage")
     String goToIndex(Model model) {
         return "index";

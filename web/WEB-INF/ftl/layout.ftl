@@ -10,12 +10,21 @@
     <script type="text/javascript" src="/js/lib/bootstrap/js/bootstrap.min.js"></script>
 </head>
 <body>
-   <div class="navbar navbar-inverse navbar-fixed-top layout-header">
-       <h3 class="text-center" style="color: #ffffff;">C语言教学系统</h3>
+   <div class="navbar navbar-fixed-top layout-header">
+       <div class="container"><img src="/images/logo.png"/></div>
+       <div class="container">
+           <ul class="nav navbar-nav center-block" style="margin-top: 5px;">
+               <li class="active navbar-header"><a href="/portal.vpage">首页</a></li>
+               <li class="active navbar-header"><a href="#">课程介绍</a></li>
+               <li class="active navbar-header"><a href="#">课件展示</a></li>
+               <li class="active navbar-header"><a href="#">师生互动</a></li>
+               <li class="active navbar-header"><a href="/index.vpage">管理员系统</a></li>
+               <li class="active navbar-header"><a href="/index.vpage">登录系统</a></li>
+               <li><a class="glyphicon glyphicon-chevron-right pull-right" href="javascript:history.back();">返回</a></li>
+           </ul>
+       </div>
    </div>
-   <div class="container" style="min-height: 550px;padding: 100px;">
-       <a class="glyphicon glyphicon-align-justify" href="/index.vpage">首页</a>
-       <a class="glyphicon glyphicon-chevron-left pull-right" href="javascript:history.back();">返回</a>
+   <div class="container" style="min-height: 550px;padding: 100px;margin-top: 60px;">
        <#nested>
    </div>
    <div class="panel-footer">
